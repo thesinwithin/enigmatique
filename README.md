@@ -34,3 +34,19 @@ Enigmatique has been developed on Ubuntu 18.04 and requires  *python3-yaml* and 
 
 ## Examples
 In the examples/ directory there is an PHP app that based on the parameters passed it increments a specific counter
+
+## Output
+```text
+dev@dev-ubnt-1:~$ curl http://localhost:1337/metrics
+# HELP enigmatique_metric_1 metric 1 help info
+# TYPE enigmatique_metric_1 counter
+enigmatique_metric_1{label="type1"} 1
+enigmatique_metric_1{label="type2"} 7
+# HELP enigmatique_metric_2 metric 2 help info
+# TYPE enigmatique_metric_2 counter
+enigmatique_metric_2 42
+# HELP enigmatique_example_php_request_type This will count the request types
+# TYPE enigmatique_example_php_request_type counter
+enigmatique_example_php_request_type{label="type1"} 35
+enigmatique_example_php_request_type{label="type2"} 58
+```
