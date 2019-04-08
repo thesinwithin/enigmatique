@@ -1,0 +1,7 @@
+redis:
+  host: "127.0.0.1"
+  port: 6178
+  password: "null"
+  db: 0
+exporter:
+  port: 1337
