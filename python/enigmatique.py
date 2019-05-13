@@ -3,7 +3,7 @@
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from socketserver import ThreadingMixIn
 import yaml
-import redis as redislib
+import redis as redis_lib
 
 version = "0.1"
 
@@ -16,22 +16,21 @@ REDIS_DB = cfg['redis']['db']
 EXPORTER = cfg['exporter']['port']
 
 if REDIS_PASSWORD == "null":
-    redis = redislib.Redis(host=REDIS_HOST,
-                           port=REDIS_PORT,
-                           db=REDIS_DB)
+    redis = redis_lib.Redis(host=REDIS_HOST,
+                            port=REDIS_PORT,
+                            db=REDIS_DB)
 else:
-    redis = redislib.Redis(host=REDIS_HOST,
-                           port=REDIS_PORT,
-                           db=REDIS_DB,
-                           password=REDIS_PASSWORD)
-
-prom = []
+    redis = redis_lib.Redis(host=REDIS_HOST,
+                            port=REDIS_PORT,
+                            db=REDIS_DB,
+                            password=REDIS_PASSWORD)
 
 def build_metrics():
+    global t
     metrics = []
+    prom = []
     for k in redis.keys('enigmatique*type'):
         metrics.append(k.decode('utf-8').split(':')[0])
-    del prom[:]
     for metric in metrics:
         m_hlp = ':'.join([metric,'help'])
         m_hlp_val = redis.get(m_hlp)
